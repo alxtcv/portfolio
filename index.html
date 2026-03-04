@@ -214,39 +214,7 @@ titleButtons[1].addEventListener("click", () => {
   }
 });
 
-// Minimize (_)
-titleButtons[0].addEventListener("click", () => {
-  if (isFullScreen) return; // cannot minimize while fullscreen
 
-  const content = mainWindow.querySelector(".content, .menu-bar, .color-control");
-  if (!isMinimized) {
-    content.style.display = "none";
-    mainWindow.style.height = "auto"; // shrink to title bar
-    isMinimized = true;
-  } else {
-    content.style.display = "flex"; // restore content layout
-    mainWindow.style.height = ""; // restore previous height
-    isMinimized = false;
-  }
-});
-
-// Close (X)
-titleButtons[2].addEventListener("click", () => {
-  mainWindow.style.display = "none";
-});
-
-// Reopen button (optional)
-const reopenBtn = document.createElement('button');
-reopenBtn.innerText = 'Open Portfolio';
-reopenBtn.style.position = 'fixed';
-reopenBtn.style.bottom = '20px';
-reopenBtn.style.right = '20px';
-reopenBtn.style.zIndex = 10000;
-document.body.appendChild(reopenBtn);
-
-reopenBtn.addEventListener('click', () => {
-  mainWindow.style.display = 'flex';
-});
 </script>
 
 
@@ -284,6 +252,7 @@ reopenBtn.addEventListener('click', () => {
     </div>
   </div>
   <script>
+    
 const canvas = document.getElementById('drawCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -369,6 +338,8 @@ controlPanel.appendChild(heightLabel);
 controlPanel.appendChild(heightSlider);
 
 drawContainer.insertBefore(controlPanel, canvas);
+
+
 
 // Mouse drawing events
 canvas.addEventListener('mousedown', e => { drawing = true; ctx.beginPath(); ctx.moveTo(e.offsetX, e.offsetY); });
@@ -503,7 +474,7 @@ fillWhiteBackground();
     document.body.style.backgroundColor = this.value;
   });
 </script>
-<button id="reopenWindow" style="position:fixed; bottom:20px; right:20px; z-index:10000;">Open Portfolio</button>
+
 
 <script>
 document.getElementById('reopenWindow').addEventListener('click', () => {
@@ -514,6 +485,4 @@ document.getElementById('reopenWindow').addEventListener('click', () => {
 
 </body>
 </html>
-
-
 

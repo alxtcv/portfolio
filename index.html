@@ -173,6 +173,82 @@
     </div>
 
     <div class="content">
+    <script>
+const mainWindow = document.getElementById("mainWindow");
+const titleButtons = document.querySelectorAll(".title-buttons div");
+
+let isFullScreen = false;
+let isMinimized = false;
+
+// Fullscreen / restore (□)
+titleButtons[1].addEventListener("click", () => {
+  if (isMinimized) return; // cannot fullscreen while minimized
+
+  if (!isFullScreen) {
+    // Save current size and position
+    mainWindow.dataset.width = mainWindow.style.width;
+    mainWindow.dataset.height = mainWindow.style.height;
+    mainWindow.dataset.top = mainWindow.style.top;
+    mainWindow.dataset.left = mainWindow.style.left;
+    mainWindow.dataset.position = mainWindow.style.position;
+    mainWindow.dataset.zIndex = mainWindow.style.zIndex;
+
+    mainWindow.style.width = window.innerWidth - 40 + "px";
+    mainWindow.style.height = window.innerHeight - 40 + "px";
+    mainWindow.style.position = "fixed";
+    mainWindow.style.top = "20px";
+    mainWindow.style.left = "20px";
+    mainWindow.style.zIndex = 9999;
+
+    isFullScreen = true;
+  } else {
+    // Restore previous size
+    mainWindow.style.width = mainWindow.dataset.width;
+    mainWindow.style.height = mainWindow.dataset.height;
+    mainWindow.style.top = mainWindow.dataset.top;
+    mainWindow.style.left = mainWindow.dataset.left;
+    mainWindow.style.position = mainWindow.dataset.position;
+    mainWindow.style.zIndex = mainWindow.dataset.zIndex;
+
+    isFullScreen = false;
+  }
+});
+
+// Minimize (_)
+titleButtons[0].addEventListener("click", () => {
+  if (isFullScreen) return; // cannot minimize while fullscreen
+
+  const content = mainWindow.querySelector(".content, .menu-bar, .color-control");
+  if (!isMinimized) {
+    content.style.display = "none";
+    mainWindow.style.height = "auto"; // shrink to title bar
+    isMinimized = true;
+  } else {
+    content.style.display = "flex"; // restore content layout
+    mainWindow.style.height = ""; // restore previous height
+    isMinimized = false;
+  }
+});
+
+// Close (X)
+titleButtons[2].addEventListener("click", () => {
+  mainWindow.style.display = "none";
+});
+
+// Reopen button (optional)
+const reopenBtn = document.createElement('button');
+reopenBtn.innerText = 'Open Portfolio';
+reopenBtn.style.position = 'fixed';
+reopenBtn.style.bottom = '20px';
+reopenBtn.style.right = '20px';
+reopenBtn.style.zIndex = 10000;
+document.body.appendChild(reopenBtn);
+
+reopenBtn.addEventListener('click', () => {
+  mainWindow.style.display = 'flex';
+});
+</script>
+
 
       <div id="file" class="tab active">
        <b> Hi, welcome to my lil portfolio website :) This took so long so please enjoy your stay!</b>
@@ -252,7 +328,7 @@ widthLabel.innerText = 'Canvas width: ';
 const widthSlider = document.createElement('input');
 widthSlider.type = 'range';
 widthSlider.min = 200;
-widthSlider.max = 1000;
+widthSlider.max = 1830;
 widthSlider.value = canvas.width;
 widthSlider.addEventListener('input', e => {
   const tempCanvas = document.createElement('canvas');
@@ -270,7 +346,7 @@ heightLabel.innerText = 'Canvas height: ';
 const heightSlider = document.createElement('input');
 heightSlider.type = 'range';
 heightSlider.min = 200;
-heightSlider.max = 800;
+heightSlider.max = 2000;
 heightSlider.value = canvas.height;
 heightSlider.addEventListener('input', e => {
   const tempCanvas = document.createElement('canvas');
@@ -427,6 +503,17 @@ fillWhiteBackground();
     document.body.style.backgroundColor = this.value;
   });
 </script>
+<button id="reopenWindow" style="position:fixed; bottom:20px; right:20px; z-index:10000;">Open Portfolio</button>
+
+<script>
+document.getElementById('reopenWindow').addEventListener('click', () => {
+  const mainWindow = document.getElementById('mainWindow');
+  mainWindow.style.display = 'flex'; // show it again
+});
+</script>
 
 </body>
 </html>
+
+
+

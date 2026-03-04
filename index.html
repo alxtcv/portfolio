@@ -5,6 +5,125 @@
 <title>ALXART</title>
 
 <style>
+.top-scroll-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 28px;
+  background: black;
+  color: #ffffff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  z-index: 10000;
+
+}
+
+.scroll-wrapper {
+  display: flex;
+  white-space: nowrap;
+  animation: scrollLoop 90s linear infinite;
+}
+
+.scroll-text {
+  white-space: nowrap;
+  margin: 0;   /* remove spacing */
+  padding: 0;  /* remove spacing */
+}
+
+/* Seamless loop */
+@keyframes scrollLoop {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Subtle CRT flicker */
+@keyframes flicker {
+  0% { opacity: 1; }
+  2% { opacity: 0.9; }
+  4% { opacity: 1; }
+  50% { opacity: 0.95; }
+  52% { opacity: 1; }
+  100% { opacity: 1; }
+}
+.loading-bar{
+width:250px;
+height:18px;
+border:2px solid black;
+background:#808080;
+margin:auto;
+overflow:hidden;
+
+/* hide it at first */
+display:none;
+}
+
+.loading-fill{
+width:0%;
+height:100%;
+background:linear-gradient(to right,#000080,#1084d0);
+}
+
+@keyframes loadBar{
+0%{width:0%;}
+100%{width:100%;}
+}
+/* ========================= */
+/* WINDOWS 98 STARTUP SCREEN */
+/* ========================= */
+
+#startupScreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#008080;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:99999;
+font-family:Tahoma,sans-serif;
+}
+
+.startup-window{
+width:420px;
+background:#c0c0c0;
+border:3px solid #000;
+box-shadow:6px 6px 0 #000;
+}
+
+.startup-titlebar{
+background:linear-gradient(to right,#000080,#1084d0);
+color:white;
+padding:6px 10px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:14px;
+}
+
+.startup-body{
+padding:25px;
+text-align:center;
+font-size:16px;
+}
+
+.startup-button{
+margin-top:20px;
+padding:6px 16px;
+background:#c0c0c0;
+border:2px solid #000;
+cursor:pointer;
+}
+
+.startup-button:active{
+box-shadow:inset 2px 2px #000;
+}
+
   body {
     background-color: #008080;
     margin: 0;
@@ -143,7 +262,37 @@
 </head>
 
 <body>
+<body>
 
+<!-- STARTUP SCREEN -->
+<div id="startupScreen">
+
+<div class="startup-window">
+
+<div class="startup-titlebar">
+<span>portfolio.exe</span>
+<span>X</span>
+</div>
+
+<div class="startup-body">
+
+<p><b>Click to open portfolio</b></p>
+
+<div class="loading-bar">
+<div class="loading-fill" id="bootBar"></div>
+</div>
+
+<br>
+
+<button class="startup-button" onclick="startPortfolio()">
+OK
+</button>
+
+</div>
+
+</div>
+
+</div>
 <div class="layout">
 
   <!-- LEFT AD -->
@@ -156,7 +305,7 @@
   <div class="window" id="mainWindow">
 
     <div class="title-bar">
-      <div>Alex Tchukharev - Portfolio</div>
+      <div>Alex Tchukharev - Portfolio‎ ‎ ‎  <i>click the box to go fullscreen or to minimize! -----></i></div>
       <div class="title-buttons">
         <div class="btn">_</div>
         <div class="btn">□</div>
@@ -236,14 +385,30 @@ titleButtons[1].addEventListener("click", () => {
 
       <div id="help" class="tab">
         find me here :0
+        <br><br><br>
+             <a href="https://www.instagram.com/alxpmo/" target="_blank"
+   style="display:inline-block; background:rgb(255, 0, 0); color:white; text-decoration:none; border-radius:6px;">
+  personal instagram @alxpmo
+  <div>
+           <br><br><br>
+         <a href="https://www.instagram.com/alxpmo_art/" target="_blank"
+   style="display:inline-block; background:rgb(255, 0, 0); color:white; text-decoration:none; border-radius:6px;">
+  art instagram @alxpmo_art
+</a>
+  </div>
+</a>
       </div>
 <div id="draw" class="tab">
-  <b>Draw something :)</b><br><br>
+  <b>Draw something :)
+    <br>
+   <i> Save your art and send it to altcv990@gmail.com for a chance to be featured on the ads!</i>
+  </b><br><br>
 
   <div style="display:flex; flex-direction:column; align-items:flex-start;">
     <canvas id="drawCanvas" width="500" height="400"
       style="border:2px solid #000; background:white; cursor:crosshair;">
     </canvas>
+    
 
     <div style="margin-top:10px;">
       <button onclick="toggleEraser()">Eraser/Paint</button>
@@ -442,6 +607,7 @@ fillWhiteBackground();
       <span><i>Change color ---></i></span>
       <input type="color" class="color-button" id="bgPicker" value="#008080">
     </div>
+  
 
   </div>
 
@@ -452,21 +618,36 @@ fillWhiteBackground();
   </div>
 
 </div>
+<div class="top-scroll-bar">
+  <div class="scroll-wrapper">
+    <div class="scroll-text">
+portfolio//art//digital//sketch//painting//visual//design//creative//canvas//illustration//graphic//abstract//realism//mixedmedia//experiments//projects//photography//typography//concepts//portfolio//art//digital//sketch//painting//visual//design//creative//canvas//illustration//graphic//abstract//realism//mixedmedia//experiments//projects//photography//typography//concepts//portfolio//art//digital//sketch//painting//visual//design//creative//canvas//illustration//graphic//abstract//realism//mixedmedia//experiments//projects//photography//typography//concepts//
+    </div>
+    <div class="scroll-text">
+portfolio//art//digital//sketch//painting//visual//design//creative//canvas//illustration//graphic//abstract//realism//mixedmedia//experiments//projects//photography//typography//concepts//portfolio//art//digital//sketch//painting//visual//design//creative//canvas//illustration//graphic//abstract//realism//mixedmedia//experiments//projects//photography//typography//concepts//portfolio//art//digital//sketch//painting//visual//design//creative//canvas//illustration//graphic//abstract//realism//mixedmedia//experiments//projects//photography//typography//concepts//
+    </div>
+  </div>
+</div>
 
 <script>
   const windowBox = document.getElementById("mainWindow");
 
-  function openTab(tabId) {
-    const tabs = document.querySelectorAll(".tab");
-    tabs.forEach(tab => tab.classList.remove("active"));
-    document.getElementById(tabId).classList.add("active");
+function openTab(tabId) {
 
-    if (tabId === "file" || tabId === "help") {
-      windowBox.classList.remove("tall");
-    } else {
-      windowBox.classList.add("tall");
-    }
+  const clickSound = document.getElementById("clickSound");
+  clickSound.currentTime = 0;
+  clickSound.play();
+
+  const tabs = document.querySelectorAll(".tab");
+  tabs.forEach(tab => tab.classList.remove("active"));
+  document.getElementById(tabId).classList.add("active");
+
+  if (tabId === "file" || tabId === "help") {
+    windowBox.classList.remove("tall");
+  } else {
+    windowBox.classList.add("tall");
   }
+}
 
   const picker = document.getElementById("bgPicker");
 
@@ -482,7 +663,38 @@ document.getElementById('reopenWindow').addEventListener('click', () => {
   mainWindow.style.display = 'flex'; // show it again
 });
 </script>
+<script>
+
+function startPortfolio(){
+
+const bar = document.getElementById("bootBar");
+const barBox = document.querySelector(".loading-bar");
+const screen = document.getElementById("startupScreen");
+const startupSound = document.getElementById("startupSound");
+
+barBox.style.display = "block";
+
+bar.style.animation="loadBar 2s linear forwards";
+
+setTimeout(()=>{
+startupSound.play();
+screen.style.display="none";
+},2000);
+
+}
+
+</script>
+<!-- SOUNDS -->
+<audio id="startupSound">
+<source src="https://dl.dropboxusercontent.com/scl/fi/sozn6u26eaxzii9tltia1/mixkit-game-balloon-or-bubble-pop-3069.wav?rlkey=6wp812tt4zqrhtpqfss8atze7&e=1&st=nyvzsjij&dl=0" type="audio/mpeg">
+</audio>
+
+<audio id="clickSound">
+<source src="https://dl.dropboxusercontent.com/scl/fi/hpqfwxtqomg5ujdk3vm58/mixkit-modern-technology-select-3124.wav?rlkey=9paohyqr40b6txpzrtq239gwl&e=1&st=lhg0tdlv&dl=0">
+</audio>
 
 </body>
 </html>
+
+
 
